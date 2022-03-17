@@ -10,7 +10,6 @@ import java.util.List;
 public class ControladorConexioClients extends ControlMissatges implements Runnable {
 
     final String RESPOSTA_SERVIDOR = " My name is Pong.";
-    final String RESPOSTA_CHISTE = " Knock, Knock";
     final PongServer SERVIDOR;
 
     public ControladorConexioClients(PongServer pong, Socket conexio) throws IOException {
@@ -20,10 +19,7 @@ public class ControladorConexioClients extends ControlMissatges implements Runna
         this.is = conexio.getInputStream();
         this.os = conexio.getOutputStream();
 
-        System.out.println("S'ha conectat l'usuari amb la ip: "
-                + conexio.getInetAddress().getHostAddress()
-                + " en el port: "
-                + conexio.getPort());
+        System.out.println("[" + conexio.getInetAddress().getHostAddress() + ":" + conexio.getPort() + "] -> Conexio establerta.");
 
     }
 
@@ -40,12 +36,12 @@ public class ControladorConexioClients extends ControlMissatges implements Runna
                 switch (opcio) {
                     case ENVIAR_MISSATGE -> esperarMissatgeClient();
 
-                    case ENVIAR_CHISTE -> enviarChiste();
+                    case ENVIAR_CHISTE -> esperarChiste();
 
                     case TANCAR_CONEXIO -> {
                         conexio.close();
                         pararConexio = true;
-                        System.out.println("Conexió tancada con el usuario con ip: " + conexio.getInetAddress().getHostAddress());
+                        System.out.println("[" + conexio.getInetAddress().getHostAddress() + ":" + conexio.getPort() + "] -> Conexió tancada.");
                     }
 
                     case TANCAR_SERVIDOR -> {
@@ -72,7 +68,7 @@ public class ControladorConexioClients extends ControlMissatges implements Runna
 
     private void tancarConexio(boolean tancarServidor) {
 
-        System.out.println("Conexio tancada amb l'usuari amb ip: " + conexio.getInetAddress().getHostAddress());
+        System.out.println("[" + conexio.getInetAddress().getHostAddress() + ":" + conexio.getPort() + "] -> Conexio tancada.");
 
         if (tancarServidor)
             SERVIDOR.pararServidor();
@@ -86,9 +82,11 @@ public class ControladorConexioClients extends ControlMissatges implements Runna
         mensajeCliente = super.esperarMissatge();
 
         missatgeEnviat.append(SERVIDOR.getNumeroMissatge() + ":: M'han dit: ")
-                .append(new String(mensajeCliente))
+                .append(mensajeCliente)
                 .append(" i jo responc:")
                 .append(RESPOSTA_SERVIDOR);
+
+        System.out.println(missatgeEnviat);
 
         super.enviarMissatge(RESPOSTA_SERVIDOR);
 
@@ -96,21 +94,40 @@ public class ControladorConexioClients extends ControlMissatges implements Runna
 
     }
 
-    private void enviarChiste() throws IOException {
+    private void esperarChiste() throws IOException {
 
         String mensajeCliente = "";
-        StringBuilder missatgeEnviat = new StringBuilder();
 
         mensajeCliente = super.esperarMissatge();
 
-        missatgeEnviat.append(SERVIDOR.getNumeroMissatge() + ":: M'han dit: ")
-                .append(new String(mensajeCliente))
-                .append(" i jo responc:")
-                .append(RESPOSTA_SERVIDOR);
+        System.out.println("[" + conexio.getInetAddress().getHostAddress() + ":" + conexio.getPort() + "] -> " + mensajeCliente);
 
-        super.enviarMissatge("Knock, Knock");
+        switch (mensajeCliente) {
+            case "Qui es?" -> super.enviarMissatge("Advocat");
+            case "Quin advocat?" -> super.enviarMissatge("El que tinc aquí penjat!");
 
+            case "Quien es?" -> super.enviarMissatge("Thomas");
+            case "¿Qué Thomas?" -> super.enviarMissatge("Yo un cubata, ¿y tú?");
+
+            case "Who is" -> super.enviarMissatge("Atch");
+            case "Atch who?" -> super.enviarMissatge("Bless you!");
+
+            default -> super.enviarMissatge("Knock, Knock");
+        }
 
     }
 
 }
+
+
+
+/*        else if (mensajeCliente.equals("Qui és?") || mensajeCliente.equals("Qui es?") || mensajeCliente.equals("Qui es") ||
+            mensajeCliente.equals("qui és?") || mensajeCliente.equals("qui es?") || mensajeCliente.equals("qui es"))
+            super.enviarMissatge("Advocat");
+
+        else if (mensajeCliente.equals("Quin advocat?") || mensajeCliente.equals("Quin advocat") ||
+                mensajeCliente.equals("quin advocat?") || mensajeCliente.equals("quin advocat"))
+            super.enviarMissatge("El que tinc aquí penjat!");
+
+        else
+            super.enviarMissatge("Esperava més de tu...");*/

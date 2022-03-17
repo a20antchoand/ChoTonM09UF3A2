@@ -72,7 +72,7 @@ public class PingClient extends ControlMissatges{
     public void pedirChiste() throws IOException {
 
         Scanner s = new Scanner(System.in);
-        String missatge = "L'usuari demana un acudir";
+        String missatge = "L'usuari demana un acudit";
         String resultat;
 
         do {
@@ -82,10 +82,24 @@ public class PingClient extends ControlMissatges{
 
             resultat = esperarMissatge();
 
-            System.out.println("Respuesta del servidor: " + resultat);
+            System.out.println("RESPOSTA: " + resultat);
 
-            System.out.print("Resposta: ");
-            missatge = s.nextLine();
+            if (!resultat.equals("El que tinc aquí penjat!") &&
+                !resultat.equals("Yo un cubata, ¿y tú?") &&
+                !resultat.equals("Bless you!")) {
+
+                System.out.print("USUARI: ");
+                missatge = s.nextLine();
+
+                if (missatge.equals(""))
+                    missatge = "empty";
+
+            } else {
+
+                resultat = "done";
+
+            }
+
         } while (!resultat.equals("done"));
     }
 
@@ -103,7 +117,7 @@ public class PingClient extends ControlMissatges{
 
         String resultat = esperarMissatge();
 
-        System.out.println("Respuesta del servidor: " + resultat);
+        System.out.println("Servidor: " + resultat);
 
     }
 
