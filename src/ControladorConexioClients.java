@@ -104,15 +104,15 @@ public class ControladorConexioClients extends ControlMissatges implements Runna
 
         switch (mensajeCliente) {
             case "Qui es?" -> super.enviarMissatge("Advocat");
-            case "Quin advocat?" -> super.enviarMissatge("El que tinc aquí penjat!");
+            case "Quin advocat" -> super.enviarMissatge("El que tinc aquí penjat!");
 
-            case "Quien es?" -> super.enviarMissatge("Thomas");
-            case "¿Qué Thomas?" -> super.enviarMissatge("Yo un cubata, ¿y tú?");
+            case "Quien es?" -> super.enviarMissatge("Tomas");
+            case "Que Tomas" -> super.enviarMissatge("Yo un cubata, ¿y tu? ");
 
-            case "Who is" -> super.enviarMissatge("Atch");
+            case "Who is?" -> super.enviarMissatge("Atch");
             case "Atch who?" -> super.enviarMissatge("Bless you!");
 
-            default -> super.enviarMissatge("Knock, Knock");
+            default -> super.enviarMissatge("OPT: (\"Qui es?\", \"Quien es?\", \"Who is?\")");
         }
 
     }
