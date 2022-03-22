@@ -85,7 +85,7 @@ public class PingClient extends ControlMissatges{
             System.out.println("RESPOSTA: " + resultat);
 
             if (!resultat.equals("El que tinc aquí penjat!") &&
-                !resultat.equals("Yo un cubata, ¿y tú?") &&
+                !resultat.equals("Yo un cubata, ¿y tu?") &&
                 !resultat.equals("Bless you!")) {
 
                 System.out.print("USUARI: ");
@@ -94,13 +94,9 @@ public class PingClient extends ControlMissatges{
                 if (missatge.equals(""))
                     missatge = "empty";
 
-            } else {
-
-                resultat = "done";
-
             }
 
-        } while (!resultat.equals("done"));
+        } while (!resultat.equals(ControladorConexioClients.CAT_4) || !resultat.equals(ControladorConexioClients.ES_4) || !resultat.equals(ControladorConexioClients.EN_4));
     }
 
     public void enviarMissatge() throws IOException {
