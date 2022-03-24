@@ -26,7 +26,8 @@ public abstract class ControlMissatges {
     }
 
     public void enviarMissatge (String missatge) throws IOException {
-        os.write(missatge.getBytes(StandardCharsets.UTF_8), 0, missatge.length());
+        byte[] missatgeBytes = missatge.getBytes(StandardCharsets.UTF_8);
+        os.write(missatgeBytes, 0, missatgeBytes.length);
         os.write(-1);
         os.flush();
     }

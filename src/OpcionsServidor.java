@@ -3,7 +3,7 @@ import java.util.Arrays;
 public enum OpcionsServidor {
 
     ENVIAR_MISSATGE((byte) 1),
-    ENVIAR_CHISTE((byte) 2),
+    ENVIAR_ACUDIT((byte) 2),
     TANCAR_SERVIDOR((byte) 3),
     TANCAR_CONEXIO((byte) 4);
 

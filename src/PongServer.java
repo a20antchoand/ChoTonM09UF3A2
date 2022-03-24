@@ -47,10 +47,10 @@ public class PongServer {
 
         while (!pararServidor) {
             try {
-                ControladorConexioClients controladorClients;
+                controladorConexioClients controladorClients;
                 Socket conexio = conexioServidor.accept();
 
-                controladorClients = new ControladorConexioClients(this, conexio);
+                controladorClients = new controladorConexioClients(this, conexio);
                 conexioExecutor.execute(controladorClients);
 
             }catch (SocketException s){

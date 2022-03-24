@@ -1,11 +1,5 @@
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class PingClient extends ControlMissatges{
@@ -71,32 +65,9 @@ public class PingClient extends ControlMissatges{
 
     public void pedirChiste() throws IOException {
 
-        Scanner s = new Scanner(System.in);
-        String missatge = "L'usuari demana un acudit";
-        String resultat;
+        new ControlAcudits(this).esperarAcudit();
 
-        do {
-            enviarOpcio(OpcionsServidor.ENVIAR_CHISTE);
 
-            enviarMissatge(missatge);
-
-            resultat = esperarMissatge();
-
-            System.out.println("RESPOSTA: " + resultat);
-
-            if (!resultat.equals("El que tinc aquí penjat!") &&
-                !resultat.equals("Yo un cubata, ¿y tu?") &&
-                !resultat.equals("Bless you!")) {
-
-                System.out.print("USUARI: ");
-                missatge = s.nextLine();
-
-                if (missatge.equals(""))
-                    missatge = "empty";
-
-            }
-
-        } while (!resultat.equals(ControladorConexioClients.CAT_4) || !resultat.equals(ControladorConexioClients.ES_4) || !resultat.equals(ControladorConexioClients.EN_4));
     }
 
     public void enviarMissatge() throws IOException {
